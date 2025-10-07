@@ -1,7 +1,5 @@
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
+import { put } from '@vercel/blob'
 import { NextResponse } from 'next/server'
-import { existsSync } from 'fs'
 
 export async function POST(request) {
   try {
@@ -12,29 +10,24 @@ export async function POST(request) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
+    // Vercel Blob'a yükle
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const blob = await put(file.name, file, {
+        access: 'public',
+        addRandomSuffix: true,
+      })
 
-    // Ensure directory exists
-    const uploadDir = join(process.cwd(), 'public/images/products')
-    if (!existsSync(uploadDir)) {
-      await mkdir(uploadDir, { recursive: true })
+      return NextResponse.json({
+        imagePath: blob.url,
+        success: true,
+      })
+    } else {
+      // Development'ta base64 kullan (client-side)
+      return NextResponse.json({
+        error: 'Blob storage not available in development',
+        useBase64: true,
+      }, { status: 503 })
     }
-
-    // Generate filename (slug + timestamp)
-    const timestamp = Date.now()
-    const originalName = file.name.split('.')[0].toLowerCase().replace(/\s+/g, '-')
-    const extension = file.name.split('.').pop()
-    const filename = `${originalName}-${timestamp}.${extension}`
-    const filepath = join(uploadDir, filename)
-
-    // Save file
-    await writeFile(filepath, buffer)
-
-    return NextResponse.json({
-      imagePath: `/images/products/${filename}`,
-      success: true,
-    })
   } catch (error) {
     console.error('Upload error:', error)
     return NextResponse.json(

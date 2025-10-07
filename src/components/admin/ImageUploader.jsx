@@ -24,10 +24,19 @@ export default function ImageUploader({ onUpload, currentImage }) {
     // Upload
     setUploading(true)
     try {
-      const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+      // API'ye yükle (Vercel Blob'a gidecek)
+      const formData = new FormData()
+      formData.append('image', file)
 
-      if (isProduction) {
-        // Production: base64 olarak sakla
+      const response = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      // Blob storage yoksa (development) base64 kullan
+      if (response.status === 503 && data.useBase64) {
         const reader = new FileReader()
         reader.onloadend = () => {
           onUpload(reader.result) // base64 string
@@ -39,30 +48,20 @@ export default function ImageUploader({ onUpload, currentImage }) {
           setUploading(false)
         }
         reader.readAsDataURL(file)
-      } else {
-        // Development: API kullan
-        const formData = new FormData()
-        formData.append('image', file)
-
-        const response = await fetch('/api/upload-image', {
-          method: 'POST',
-          body: formData,
-        })
-
-        const data = await response.json()
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Upload başarısız')
-        }
-
-        if (data.success) {
-          onUpload(data.imagePath)
-          setError(null)
-        } else {
-          setError('Resim yüklenemedi! Lütfen tekrar deneyin.')
-        }
-        setUploading(false)
+        return
       }
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload başarısız')
+      }
+
+      if (data.success) {
+        onUpload(data.imagePath) // Vercel Blob URL
+        setError(null)
+      } else {
+        setError('Resim yüklenemedi! Lütfen tekrar deneyin.')
+      }
+      setUploading(false)
     } catch (error) {
       console.error('Upload error:', error)
       // Fallback: base64 kullan

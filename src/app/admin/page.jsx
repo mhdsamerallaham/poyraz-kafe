@@ -16,21 +16,8 @@ export default function AdminPage() {
     const loggedIn = localStorage.getItem('adminLoggedIn') === 'true'
     setIsLoggedIn(loggedIn)
 
-    // Önce localStorage'dan kontrol et
-    const savedData = localStorage.getItem('poyrazMenuData')
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData)
-        setMenuData(parsedData)
-        setLoading(false)
-        return
-      } catch (e) {
-        console.error('localStorage parse error:', e)
-      }
-    }
-
-    // localStorage'da yoksa menu.json'dan yükle
-    fetch('/data/menu.json')
+    // API'den menüyü yükle (KV'den gelecek)
+    fetch('/api/menu')
       .then((res) => res.json())
       .then((data) => {
         setMenuData(data)
@@ -38,6 +25,15 @@ export default function AdminPage() {
       })
       .catch((error) => {
         console.error('Error loading menu:', error)
+        // Hata varsa fallback olarak localStorage kontrol et
+        const savedData = localStorage.getItem('poyrazMenuData')
+        if (savedData) {
+          try {
+            setMenuData(JSON.parse(savedData))
+          } catch (e) {
+            console.error('localStorage parse error:', e)
+          }
+        }
         setLoading(false)
       })
   }, [])
@@ -54,44 +50,35 @@ export default function AdminPage() {
   const handleSave = async () => {
     setSaving(true)
     try {
-      // Production'da API route çalışmıyorsa localStorage kullan
-      const isProduction = window.location.hostname !== 'localhost'
+      // API'ye kaydet (Vercel KV'ye gidecek)
+      const response = await fetch('/api/menu', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(menuData),
+      })
 
-      if (isProduction) {
-        // localStorage'a kaydet
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || data.details || 'Kaydetme başarısız')
+      }
+
+      if (data.success) {
+        // Backup olarak localStorage'a da kaydet
         localStorage.setItem('poyrazMenuData', JSON.stringify(menuData))
         alert('✅ Menü başarıyla kaydedildi!')
         window.location.reload()
       } else {
-        // Development'ta API kullan
-        const response = await fetch('/api/menu', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(menuData),
-        })
-
-        const data = await response.json()
-
-        if (!response.ok) {
-          throw new Error(data.error || data.details || 'Kaydetme başarısız')
-        }
-
-        if (data.success) {
-          alert('✅ Menü başarıyla kaydedildi!')
-          window.location.reload()
-        } else {
-          alert('⚠️ Kaydetme hatası! Lütfen tekrar deneyin.')
-        }
+        alert('⚠️ Kaydetme hatası! Lütfen tekrar deneyin.')
       }
     } catch (error) {
       console.error('Save error:', error)
       // Fallback: localStorage kullan
       try {
         localStorage.setItem('poyrazMenuData', JSON.stringify(menuData))
-        alert('✅ Menü başarıyla kaydedildi! (localStorage)')
-        window.location.reload()
+        alert('⚠️ Sunucuya kaydedilemedi ama tarayıcıda kaydedildi!\n\nLütfen daha sonra tekrar deneyin.')
       } catch (lsError) {
         alert(`❌ Kaydetme sırasında hata oluştu!\n\n${error.message}`)
       }
