@@ -16,6 +16,20 @@ export default function AdminPage() {
     const loggedIn = localStorage.getItem('adminLoggedIn') === 'true'
     setIsLoggedIn(loggedIn)
 
+    // Önce localStorage'dan kontrol et
+    const savedData = localStorage.getItem('poyrazMenuData')
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData)
+        setMenuData(parsedData)
+        setLoading(false)
+        return
+      } catch (e) {
+        console.error('localStorage parse error:', e)
+      }
+    }
+
+    // localStorage'da yoksa menu.json'dan yükle
     fetch('/data/menu.json')
       .then((res) => res.json())
       .then((data) => {
@@ -40,30 +54,47 @@ export default function AdminPage() {
   const handleSave = async () => {
     setSaving(true)
     try {
-      const response = await fetch('/api/menu', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(menuData),
-      })
+      // Production'da API route çalışmıyorsa localStorage kullan
+      const isProduction = window.location.hostname !== 'localhost'
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || data.details || 'Kaydetme başarısız')
-      }
-
-      if (data.success) {
+      if (isProduction) {
+        // localStorage'a kaydet
+        localStorage.setItem('poyrazMenuData', JSON.stringify(menuData))
         alert('✅ Menü başarıyla kaydedildi!')
-        // Reload to get fresh data
         window.location.reload()
       } else {
-        alert('⚠️ Kaydetme hatası! Lütfen tekrar deneyin.')
+        // Development'ta API kullan
+        const response = await fetch('/api/menu', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(menuData),
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || data.details || 'Kaydetme başarısız')
+        }
+
+        if (data.success) {
+          alert('✅ Menü başarıyla kaydedildi!')
+          window.location.reload()
+        } else {
+          alert('⚠️ Kaydetme hatası! Lütfen tekrar deneyin.')
+        }
       }
     } catch (error) {
       console.error('Save error:', error)
-      alert(`❌ Kaydetme sırasında hata oluştu!\n\n${error.message}`)
+      // Fallback: localStorage kullan
+      try {
+        localStorage.setItem('poyrazMenuData', JSON.stringify(menuData))
+        alert('✅ Menü başarıyla kaydedildi! (localStorage)')
+        window.location.reload()
+      } catch (lsError) {
+        alert(`❌ Kaydetme sırasında hata oluştu!\n\n${error.message}`)
+      }
     } finally {
       setSaving(false)
     }

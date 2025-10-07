@@ -24,31 +24,60 @@ export default function ImageUploader({ onUpload, currentImage }) {
     // Upload
     setUploading(true)
     try {
-      const formData = new FormData()
-      formData.append('image', file)
+      const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
 
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: formData,
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Upload başarısız')
-      }
-
-      if (data.success) {
-        onUpload(data.imagePath)
-        setError(null)
+      if (isProduction) {
+        // Production: base64 olarak sakla
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          onUpload(reader.result) // base64 string
+          setError(null)
+          setUploading(false)
+        }
+        reader.onerror = () => {
+          setError('Resim yüklenirken hata oluştu!')
+          setUploading(false)
+        }
+        reader.readAsDataURL(file)
       } else {
-        setError('Resim yüklenemedi! Lütfen tekrar deneyin.')
+        // Development: API kullan
+        const formData = new FormData()
+        formData.append('image', file)
+
+        const response = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: formData,
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Upload başarısız')
+        }
+
+        if (data.success) {
+          onUpload(data.imagePath)
+          setError(null)
+        } else {
+          setError('Resim yüklenemedi! Lütfen tekrar deneyin.')
+        }
+        setUploading(false)
       }
     } catch (error) {
       console.error('Upload error:', error)
-      setError(error.message || 'Resim yüklenirken hata oluştu!')
-    } finally {
-      setUploading(false)
+      // Fallback: base64 kullan
+      try {
+        const reader = new FileReader()
+        reader.onloadend = () => {
+          onUpload(reader.result)
+          setError(null)
+          setUploading(false)
+        }
+        reader.readAsDataURL(file)
+      } catch (fallbackError) {
+        setError(error.message || 'Resim yüklenirken hata oluştu!')
+        setUploading(false)
+      }
     }
   }
 

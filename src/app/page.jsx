@@ -12,6 +12,20 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Önce localStorage'dan kontrol et (admin değişiklikler için)
+    const savedData = localStorage.getItem('poyrazMenuData')
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData)
+        setMenuData(parsedData)
+        setLoading(false)
+        return
+      } catch (e) {
+        console.error('localStorage parse error:', e)
+      }
+    }
+
+    // localStorage'da yoksa menu.json'dan yükle
     fetch('/data/menu.json')
       .then((res) => res.json())
       .then((data) => {
