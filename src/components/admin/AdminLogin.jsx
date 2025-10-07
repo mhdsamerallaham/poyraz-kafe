@@ -21,18 +21,17 @@ export default function AdminLogin({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4">
-      {/* Fixed background image */}
-      <div className="fixed inset-0 z-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'url(/images/coffee-hero.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed'
-          }}
-        />
+    <div className="min-h-screen relative flex items-center justify-center p-4 bg-pearl">
+      {/* Fixed background image - using CSS for better mobile support */}
+      <div
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/images/coffee-hero.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-pearl/70 via-pearl/60 to-pearl/70"></div>
       </div>
 

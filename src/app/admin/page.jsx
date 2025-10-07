@@ -102,18 +102,17 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen relative">
-      {/* Fixed background image */}
-      <div className="fixed inset-0 z-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'url(/images/coffee-hero.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed'
-          }}
-        />
+    <div className="min-h-screen relative bg-pearl">
+      {/* Fixed background image - using CSS for better mobile support */}
+      <div
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: 'url(/images/coffee-hero.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         {/* Light overlay for minimal aesthetic */}
         <div className="absolute inset-0 bg-gradient-to-b from-pearl/60 via-pearl/50 to-pearl/60"></div>
       </div>
