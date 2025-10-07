@@ -1,0 +1,362 @@
+{
+  "categories": [
+    {
+      "id": "cat-1",
+      "name": "Kahve & Espresso",
+      "order": 1,
+      "icon": "☕"
+    },
+    {
+      "id": "cat-2",
+      "name": "Soğuk İçecekler",
+      "order": 2,
+      "icon": "🥤"
+    },
+    {
+      "id": "cat-3",
+      "name": "Kahvaltı",
+      "order": 3,
+      "icon": "🍳"
+    },
+    {
+      "id": "cat-4",
+      "name": "Tatlılar",
+      "order": 4,
+      "icon": "🍰"
+    },
+    {
+      "id": "cat-5",
+      "name": "Ana Yemekler",
+      "order": 5,
+      "icon": "🍔"
+    },
+    {
+      "id": "cat-6",
+      "name": "Salatalar",
+      "order": 6,
+      "icon": "🥗"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "categoryId": "cat-1",
+      "name": "Espresso",
+      "description": "Klasik İtalyan usulü espresso, yoğun ve aromatik",
+      "price": 35,
+      "image": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800&q=80",
+      "available": true,
+      "order": 1
+    },
+    {
+      "id": "prod-2",
+      "categoryId": "cat-1",
+      "name": "Cappuccino",
+      "description": "Espresso, sıcak süt ve kremsi süt köpüğü",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80",
+      "available": true,
+      "order": 2
+    },
+    {
+      "id": "prod-3",
+      "categoryId": "cat-1",
+      "name": "Latte",
+      "description": "Espresso ve bolca sütlü kahve",
+      "price": 50,
+      "image": "https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=800&q=80",
+      "available": true,
+      "order": 3
+    },
+    {
+      "id": "prod-4",
+      "categoryId": "cat-1",
+      "name": "Flat White",
+      "description": "Mikro köpüklü süt ve çift shot espresso",
+      "price": 60,
+      "image": "/images/products/93ee20287f13f86937f425ac053b7a21-1759804089763.jpg",
+      "available": true,
+      "order": 4
+    },
+    {
+      "id": "prod-5",
+      "categoryId": "cat-1",
+      "name": "Mocha",
+      "description": "Espresso, sıcak süt ve belçika çikolatası",
+      "price": 65,
+      "image": "/images/products/3637dd93642dfea21c1ce8fe15dab430-1759804228143.jpg",
+      "available": true,
+      "order": 5
+    },
+    {
+      "id": "prod-6",
+      "categoryId": "cat-1",
+      "name": "Türk Kahvesi",
+      "description": "Geleneksel usulde hazırlanmış özel harmanımız",
+      "price": 45,
+      "image": "https://images.unsplash.com/photo-1610889556528-9a770e32642f?w=800&q=80",
+      "available": true,
+      "order": 6
+    },
+    {
+      "id": "prod-7",
+      "categoryId": "cat-2",
+      "name": "Ice Latte",
+      "description": "Buzlu sütlü kahve, serinletici ve kremsi",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&q=80",
+      "available": true,
+      "order": 1
+    },
+    {
+      "id": "prod-8",
+      "categoryId": "cat-2",
+      "name": "Cold Brew",
+      "description": "12 saat soğuk demleme, yumuşak ve doğal tatlı",
+      "price": 60,
+      "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80",
+      "available": true,
+      "order": 2
+    },
+    {
+      "id": "prod-9",
+      "categoryId": "cat-2",
+      "name": "Limonata",
+      "description": "Taze sıkılmış limon, naneli",
+      "price": 40,
+      "image": "/images/products/93ee20287f13f86937f425ac053b7a21-1759804112806.jpg",
+      "available": true,
+      "order": 3
+    },
+    {
+      "id": "prod-10",
+      "categoryId": "cat-2",
+      "name": "Milkshake",
+      "description": "Çikolata, çilek veya vanilya seçenekleri",
+      "price": 70,
+      "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&q=80",
+      "available": true,
+      "order": 4
+    },
+    {
+      "id": "prod-11",
+      "categoryId": "cat-2",
+      "name": "Smoothie",
+      "description": "Taze meyveli smoothie (yeşil/berry/tropical)",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=800&q=80",
+      "available": true,
+      "order": 5
+    },
+    {
+      "id": "prod-12",
+      "categoryId": "cat-3",
+      "name": "Serpme Kahvaltı",
+      "description": "Zengin peynir çeşitleri, zeytin, reçel, bal, yumurta, salam, sosis",
+      "price": 180,
+      "image": "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&q=80",
+      "available": true,
+      "order": 1
+    },
+    {
+      "id": "prod-13",
+      "categoryId": "cat-3",
+      "name": "Menemen",
+      "description": "Domates, biber, soğan ve yumurta ile geleneksel menemen",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=800&q=80",
+      "available": true,
+      "order": 2
+    },
+    {
+      "id": "prod-14",
+      "categoryId": "cat-3",
+      "name": "Pancake",
+      "description": "Akçaağaç şurubu ve tereyağı ile yumuşak pankek",
+      "price": 85,
+      "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
+      "available": true,
+      "order": 3
+    },
+    {
+      "id": "prod-15",
+      "categoryId": "cat-3",
+      "name": "Waffle",
+      "description": "Taze meyveli, çikolata soslu veya bal-tereyağlı",
+      "price": 90,
+      "image": "https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=800&q=80",
+      "available": true,
+      "order": 4
+    },
+    {
+      "id": "prod-16",
+      "categoryId": "cat-3",
+      "name": "Avocado Toast",
+      "description": "Ezilmiş avokado, poşe yumurta, kırmızı biber, ekşi maya ekmeği",
+      "price": 95,
+      "image": "https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=800&q=80",
+      "available": true,
+      "order": 5
+    },
+    {
+      "id": "prod-17",
+      "categoryId": "cat-3",
+      "name": "French Toast",
+      "description": "Karamelize muz, akçaağaç şurubu ve tereyağı",
+      "price": 80,
+      "image": "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=800&q=80",
+      "available": true,
+      "order": 6
+    },
+    {
+      "id": "prod-18",
+      "categoryId": "cat-3",
+      "name": "Omlet",
+      "description": "3 yumurtalı omlet, peynir/mantar/sebze seçenekleri",
+      "price": 70,
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+      "available": true,
+      "order": 7
+    },
+    {
+      "id": "prod-19",
+      "categoryId": "cat-3",
+      "name": "Granola Bowl",
+      "description": "Ev yapımı granola, yoğurt, taze meyveler, bal",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=800&q=80",
+      "available": true,
+      "order": 8
+    },
+    {
+      "id": "prod-20",
+      "categoryId": "cat-4",
+      "name": "Cheesecake",
+      "description": "Kremsi New York style cheesecake, çilekli veya orman meyveli",
+      "price": 85,
+      "image": "/images/products/dea01a87b4e0389b06ea43a19e6af30c-1759802820083.jpg",
+      "available": true,
+      "order": 1
+    },
+    {
+      "id": "prod-21",
+      "categoryId": "cat-4",
+      "name": "Tiramisu",
+      "description": "Klasik İtalyan tatlısı, mascarpone ve kahve",
+      "price": 90,
+      "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&q=80",
+      "available": true,
+      "order": 2
+    },
+    {
+      "id": "prod-22",
+      "categoryId": "cat-4",
+      "name": "Brownie",
+      "description": "Çikolatalı ıslak kek, vanilyalı dondurma ile",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1607920591413-4ec007e70023?w=800&q=80",
+      "available": true,
+      "order": 3
+    },
+    {
+      "id": "prod-23",
+      "categoryId": "cat-4",
+      "name": "Croissant",
+      "description": "Tereyağlı, badem kremalı veya çikolatalı",
+      "price": 45,
+      "image": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80",
+      "available": true,
+      "order": 4
+    },
+    {
+      "id": "prod-24",
+      "categoryId": "cat-4",
+      "name": "San Sebastian Cheesecake",
+      "description": "Karamelize yüzeyli özel cheesecake",
+      "price": 95,
+      "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80",
+      "available": true,
+      "order": 5
+    },
+    {
+      "id": "prod-25",
+      "categoryId": "cat-4",
+      "name": "Macaron",
+      "description": "Renkli Fransız makaronları (6'lı)",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1569864358642-9d1684040f43?w=800&q=80",
+      "available": true,
+      "order": 6
+    },
+    {
+      "id": "prod-26",
+      "categoryId": "cat-5",
+      "name": "Burger",
+      "description": "200gr dana eti, özel sos, sebzeler, patates kızartması",
+      "price": 140,
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80",
+      "available": true,
+      "order": 1
+    },
+    {
+      "id": "prod-27",
+      "categoryId": "cat-5",
+      "name": "Chicken Wrap",
+      "description": "Izgara tavuk, sebzeler, özel sos, patates kızartması",
+      "price": 110,
+      "image": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&q=80",
+      "available": true,
+      "order": 2
+    },
+    {
+      "id": "prod-28",
+      "categoryId": "cat-5",
+      "name": "Club Sandwich",
+      "description": "Tavuk, bacon, marul, domates, patates kızartması",
+      "price": 120,
+      "image": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&q=80",
+      "available": true,
+      "order": 3
+    },
+    {
+      "id": "prod-29",
+      "categoryId": "cat-5",
+      "name": "Pasta Alfredo",
+      "description": "Kremsi alfredo sos, tavuklu veya mantarlı",
+      "price": 130,
+      "image": "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=800&q=80",
+      "available": true,
+      "order": 4
+    },
+    {
+      "id": "prod-30",
+      "categoryId": "cat-6",
+      "name": "Caesar Salad",
+      "description": "Marul, parmesan, kruton, özel caesar sos, tavuk",
+      "price": 95,
+      "image": "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=800&q=80",
+      "available": true,
+      "order": 1
+    },
+    {
+      "id": "prod-31",
+      "categoryId": "cat-6",
+      "name": "Quinoa Salad",
+      "description": "Kinoa, avokado, nar, ceviz, limon-zeytinyağı sos",
+      "price": 100,
+      "image": "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=800&q=80",
+      "available": true,
+      "order": 2
+    },
+    {
+      "id": "prod-32",
+      "categoryId": "cat-6",
+      "name": "Greek Salad",
+      "description": "Beyaz peynir, zeytin, domates, salatalık, soğan",
+      "price": 85,
+      "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80",
+      "available": true,
+      "order": 3
+    }
+  ]
+}
