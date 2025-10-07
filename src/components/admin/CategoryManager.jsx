@@ -92,9 +92,12 @@ export default function CategoryManager({ categories, onUpdate }) {
       onUpdate(updated)
       setEditingId(null)
     } else {
+      // Otomatik son sıraya ekle
+      const maxOrder = categories.length > 0 ? Math.max(...categories.map(c => c.order || 0)) : 0
       const newCategory = {
         id: `cat-${Date.now()}`,
         ...formData,
+        order: maxOrder + 1,
       }
       onUpdate([...categories, newCategory])
       setIsAdding(false)
@@ -168,7 +171,7 @@ export default function CategoryManager({ categories, onUpdate }) {
       {isAdding && (
         <form onSubmit={handleSubmit} className="mb-8 p-8 bg-gradient-to-br from-sage-50 to-sand-50 rounded-2xl border border-sage-200/50 shadow-lg">
           <h3 className="text-xl font-light text-charcoal mb-6 tracking-tight">Yeni Kategori Ekle</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">
                 Kategori Adı
@@ -203,19 +206,6 @@ export default function CategoryManager({ categories, onUpdate }) {
                   </option>
                 ))}
               </select>
-            </div>
-            <div>
-              <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Sıra</label>
-              <input
-                type="number"
-                value={formData.order}
-                onChange={(e) =>
-                  setFormData({ ...formData, order: parseInt(e.target.value) })
-                }
-                className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sage-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
-                min="1"
-                required
-              />
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">

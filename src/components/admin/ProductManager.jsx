@@ -28,9 +28,12 @@ export default function ProductManager({ products, categories, onUpdate }) {
       onUpdate(updated)
       setEditingId(null)
     } else {
+      // Otomatik son sıraya ekle
+      const maxOrder = products.length > 0 ? Math.max(...products.map(p => p.order || 0)) : 0
       const newProduct = {
         id: `prod-${Date.now()}`,
         ...formData,
+        order: maxOrder + 1,
       }
       onUpdate([...products, newProduct])
       setIsAdding(false)
@@ -136,7 +139,7 @@ export default function ProductManager({ products, categories, onUpdate }) {
             ))}
           </select>
         </div>
-        <div>
+        <div className={editingId ? '' : 'md:col-span-2'}>
           <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Fiyat (₺)</label>
           <input
             type="number"
@@ -148,17 +151,19 @@ export default function ProductManager({ products, categories, onUpdate }) {
             required
           />
         </div>
-        <div>
-          <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Sıra</label>
-          <input
-            type="number"
-            value={formData.order}
-            onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
-            className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
-            min="1"
-            required
-          />
-        </div>
+        {editingId && (
+          <div>
+            <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Sıra</label>
+            <input
+              type="number"
+              value={formData.order}
+              onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
+              className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
+              min="1"
+              required
+            />
+          </div>
+        )}
       </div>
       <div className="mb-6">
         <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Açıklama</label>
