@@ -65,7 +65,7 @@ export default function AboutPage() {
                 Poyraz Kafesi, deniz esintisinin huzurunu kahve kokusuyla birleştirme fikrinden doğdu.
               </p>
               <p className="text-base md:text-lg">
-                2018'de açıldığımız günden bu yana, her fincanda doğallığı, sadeliği ve samimiyeti sunmayı amaçlıyoruz.
+                2018&apos;de açıldığımız günden bu yana, her fincanda doğallığı, sadeliği ve samimiyeti sunmayı amaçlıyoruz.
               </p>
             </div>
           </section>
@@ -130,7 +130,7 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4 text-charcoal/70 font-light leading-relaxed">
               <p className="text-base md:text-lg">
-                Poyraz'ın arkasında, kahveye tutkuyla bağlı bir ekip var.
+                Poyraz&apos;ın arkasında, kahveye tutkuyla bağlı bir ekip var.
               </p>
               <p className="text-base md:text-lg">
                 Her fincan, emeğimizin ve sevgimizin bir yansımasıdır.
