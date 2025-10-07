@@ -120,64 +120,108 @@ export default function AdminPage() {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Header with logo */}
-        <header className="bg-white/70 backdrop-blur-lg shadow-sm sticky top-0 z-20 border-b border-white/20">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <div className="relative w-32 h-16">
-                <Image
-                  src="/images/logo.png"
-                  alt="Poyraz Kafe"
-                  fill
-                  className="object-contain"
-                  priority
-                />
+        {/* Professional Header */}
+        <header className="bg-white/80 backdrop-blur-xl border-b border-sage-200/30 sticky top-0 z-20 shadow-sm">
+          <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-4 md:py-5">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-3 md:gap-6 w-full md:w-auto">
+                <div className="relative w-32 h-16 md:w-40 md:h-20">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Poyraz Kafe"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+                <div className="border-l border-charcoal/10 pl-3 md:pl-6">
+                  <h1 className="text-xl md:text-3xl font-light text-charcoal tracking-tight">
+                    Yönetim Paneli
+                  </h1>
+                  <p className="text-xs md:text-sm text-charcoal/50 font-light tracking-wide mt-0.5">
+                    Menü & Kategori Yönetimi
+                  </p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-2xl font-light text-charcoal tracking-tight">
-                  Admin Panel
-                </h1>
-                <p className="text-sm text-charcoal/50 font-light">Menü Yönetim Sistemi</p>
+              <div className="flex items-center gap-2 md:gap-4 w-full md:w-auto">
+                <button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="bg-gradient-to-r from-sage-600 to-sage-700 text-white px-4 md:px-8 py-2.5 md:py-3 rounded-xl hover:from-sage-700 hover:to-sage-800 transition-all duration-300 disabled:opacity-50 font-light text-xs md:text-sm tracking-wide shadow-lg shadow-sage-600/20 flex items-center gap-2 flex-1 md:flex-none justify-center"
+                >
+                  <span className="text-base md:text-lg">{saving ? '⏳' : '💾'}</span>
+                  <span className="hidden sm:inline">{saving ? 'Kaydediliyor...' : 'Değişiklikleri Kaydet'}</span>
+                  <span className="sm:hidden">{saving ? 'Kaydet...' : 'Kaydet'}</span>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="bg-white/70 backdrop-blur-sm text-charcoal px-4 md:px-6 py-2.5 md:py-3 rounded-xl hover:bg-white transition-all duration-300 font-light text-xs md:text-sm tracking-wide border border-charcoal/10 flex items-center gap-2"
+                >
+                  <span className="text-base md:text-lg">🚪</span>
+                  <span className="hidden sm:inline">Çıkış</span>
+                </button>
               </div>
-            </div>
-            <div className="flex gap-3">
-              <button
-                onClick={handleSave}
-                disabled={saving}
-                className="bg-sage-600 text-white px-5 py-2.5 rounded-full hover:bg-sage-700 transition-all duration-200 disabled:opacity-50 font-light text-sm tracking-wide"
-              >
-                {saving ? 'Kaydediliyor...' : '💾 Kaydet'}
-              </button>
-              <button
-                onClick={handleLogout}
-                className="bg-red-500 text-white px-5 py-2.5 rounded-full hover:bg-red-600 transition-all duration-200 font-light text-sm tracking-wide"
-              >
-                🚪 Çıkış
-              </button>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-12">
-        <div className="space-y-8">
-          <CategoryManager
-            categories={menuData.categories}
-            onUpdate={(updated) =>
-              setMenuData({ ...menuData, categories: updated })
-            }
-          />
+        {/* Dashboard Stats */}
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-6 md:py-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-10">
+            <div className="bg-white/60 backdrop-blur-lg rounded-2xl p-5 md:p-6 border border-sage-200/30 shadow-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs md:text-sm font-light text-charcoal/60 tracking-wide mb-1">Toplam Kategori</p>
+                  <p className="text-3xl md:text-4xl font-light text-charcoal">{menuData.categories.length}</p>
+                </div>
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-sage-500 to-sage-600 rounded-xl flex items-center justify-center text-xl md:text-2xl shadow-lg shadow-sage-500/20">
+                  📋
+                </div>
+              </div>
+            </div>
+            <div className="bg-white/60 backdrop-blur-lg rounded-2xl p-5 md:p-6 border border-sand-200/30 shadow-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs md:text-sm font-light text-charcoal/60 tracking-wide mb-1">Toplam Ürün</p>
+                  <p className="text-3xl md:text-4xl font-light text-charcoal">{menuData.products.length}</p>
+                </div>
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-sand-500 to-sand-600 rounded-xl flex items-center justify-center text-xl md:text-2xl shadow-lg shadow-sand-500/20">
+                  🍽️
+                </div>
+              </div>
+            </div>
+            <div className="bg-white/60 backdrop-blur-lg rounded-2xl p-5 md:p-6 border border-clay/30 shadow-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs md:text-sm font-light text-charcoal/60 tracking-wide mb-1">Aktif Ürün</p>
+                  <p className="text-3xl md:text-4xl font-light text-charcoal">
+                    {menuData.products.filter(p => p.available).length}
+                  </p>
+                </div>
+                <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-xl md:text-2xl shadow-lg shadow-green-500/20">
+                  ✅
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <ProductManager
-            products={menuData.products}
-            categories={menuData.categories}
-            onUpdate={(updated) =>
-              setMenuData({ ...menuData, products: updated })
-            }
-          />
+          <div className="space-y-8">
+            <CategoryManager
+              categories={menuData.categories}
+              onUpdate={(updated) =>
+                setMenuData({ ...menuData, categories: updated })
+              }
+            />
+
+            <ProductManager
+              products={menuData.products}
+              categories={menuData.categories}
+              onUpdate={(updated) =>
+                setMenuData({ ...menuData, products: updated })
+              }
+            />
+          </div>
         </div>
-      </main>
 
         <footer className="bg-white/50 backdrop-blur-lg border-t border-white/20 mt-16 py-6">
           <div className="max-w-7xl mx-auto px-6 text-center text-charcoal/40">

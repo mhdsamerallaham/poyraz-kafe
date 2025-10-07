@@ -100,28 +100,31 @@ export default function ProductManager({ products, categories, onUpdate }) {
   const sortedProducts = [...filteredProducts].sort((a, b) => a.order - b.order)
 
   const ProductForm = ({ onSubmit, onCancel }) => (
-    <form onSubmit={onSubmit} className="p-6 bg-sage-50 rounded-2xl border-2 border-sage-200">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+    <form onSubmit={onSubmit} className="p-8 bg-gradient-to-br from-sand-50 to-sage-50 rounded-2xl border border-sand-200/50 shadow-lg">
+      <h3 className="text-xl font-light text-charcoal mb-6 tracking-tight">
+        {editingId ? 'Ürün Düzenle' : 'Yeni Ürün Ekle'}
+      </h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
-          <label className="block text-charcoal/70 font-light text-sm mb-2 tracking-wide">
+          <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">
             Ürün Adı
           </label>
           <input
             type="text"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-sage-400 focus:border-transparent outline-none font-light"
+            className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
             required
           />
         </div>
         <div>
-          <label className="block text-charcoal/70 font-light text-sm mb-2 tracking-wide">
+          <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">
             Kategori
           </label>
           <select
             value={formData.categoryId}
             onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-            className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-sage-400 focus:border-transparent outline-none font-light bg-white"
+            className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
             required
           >
             <option value="">Seçiniz...</option>
@@ -133,35 +136,35 @@ export default function ProductManager({ products, categories, onUpdate }) {
           </select>
         </div>
         <div>
-          <label className="block text-charcoal/70 font-light text-sm mb-2 tracking-wide">Fiyat (₺)</label>
+          <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Fiyat (₺)</label>
           <input
             type="number"
             value={formData.price}
             onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) })}
-            className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-sage-400 focus:border-transparent outline-none font-light"
+            className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
             min="0"
             step="0.01"
             required
           />
         </div>
         <div>
-          <label className="block text-charcoal/70 font-light text-sm mb-2 tracking-wide">Sıra</label>
+          <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Sıra</label>
           <input
             type="number"
             value={formData.order}
             onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
-            className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-sage-400 focus:border-transparent outline-none font-light"
+            className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
             min="1"
             required
           />
         </div>
       </div>
       <div className="mb-6">
-        <label className="block text-charcoal/70 font-light text-sm mb-2 tracking-wide">Açıklama</label>
+        <label className="block text-charcoal/70 font-light text-sm mb-3 tracking-wide">Açıklama</label>
         <textarea
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          className="w-full px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-sage-400 focus:border-transparent outline-none font-light"
+          className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
           rows="3"
           required
         />
@@ -173,12 +176,12 @@ export default function ProductManager({ products, categories, onUpdate }) {
         />
       </div>
       <div className="mb-6">
-        <label className="flex items-center gap-3 cursor-pointer">
+        <label className="flex items-center gap-3 cursor-pointer p-4 bg-white rounded-xl border border-charcoal/10 hover:border-sand-500/30 transition-all">
           <input
             type="checkbox"
             checked={formData.available}
             onChange={(e) => setFormData({ ...formData, available: e.target.checked })}
-            className="w-5 h-5 rounded border-charcoal/20 text-sage-600 focus:ring-sage-400"
+            className="w-5 h-5 rounded border-charcoal/20 text-sand-600 focus:ring-sand-400"
           />
           <span className="text-charcoal/70 font-light text-sm tracking-wide">Stokta mevcut</span>
         </label>
@@ -186,14 +189,14 @@ export default function ProductManager({ products, categories, onUpdate }) {
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           type="submit"
-          className="bg-sage-600 text-white px-6 py-3 rounded-xl hover:bg-sage-700 font-light tracking-wide transition-all"
+          className="bg-gradient-to-r from-sand-600 to-sand-700 text-white px-8 py-3 rounded-xl hover:from-sand-700 hover:to-sand-800 font-light tracking-wide transition-all shadow-lg shadow-sand-600/20"
         >
           {editingId ? 'Güncelle' : 'Ekle'}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="bg-charcoal/10 text-charcoal px-6 py-3 rounded-xl hover:bg-charcoal/20 font-light tracking-wide transition-all"
+          className="bg-white text-charcoal px-8 py-3 rounded-xl hover:bg-charcoal/5 font-light tracking-wide transition-all border border-charcoal/20"
         >
           İptal
         </button>
@@ -202,27 +205,31 @@ export default function ProductManager({ products, categories, onUpdate }) {
   )
 
   return (
-    <div className="bg-white rounded-2xl soft-shadow minimal-border p-6 md:p-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-        <h2 className="text-2xl md:text-3xl font-light text-charcoal tracking-tight">Ürün Yönetimi</h2>
+    <div className="bg-white/70 backdrop-blur-lg rounded-2xl md:rounded-3xl border border-sand-200/30 p-4 md:p-8 shadow-xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 md:mb-8">
+        <div>
+          <h2 className="text-2xl md:text-3xl font-light text-charcoal tracking-tight mb-1">Ürün Yönetimi</h2>
+          <p className="text-xs md:text-sm text-charcoal/50 font-light tracking-wide">Menü ürünlerini düzenleyin</p>
+        </div>
         {!isAdding && !editingId && (
           <button
             onClick={() => setIsAdding(true)}
-            className="bg-sage-600 text-white px-5 py-2.5 rounded-full hover:bg-sage-700 transition-all font-light text-sm tracking-wide w-full sm:w-auto"
+            className="bg-gradient-to-r from-sand-600 to-sand-700 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-xl hover:from-sand-700 hover:to-sand-800 transition-all duration-300 font-light text-xs md:text-sm tracking-wide shadow-lg shadow-sand-600/20 flex items-center gap-2 w-full sm:w-auto justify-center"
           >
-            + Yeni Ürün
+            <span className="text-base md:text-lg">➕</span>
+            Yeni Ürün
           </button>
         )}
       </div>
 
-      <div className="mb-6">
-        <label className="block text-charcoal/70 font-light text-sm mb-2 tracking-wide">
+      <div className="mb-6 md:mb-8">
+        <label className="block text-charcoal/70 font-light text-xs md:text-sm mb-2 md:mb-3 tracking-wide">
           Kategoriye Göre Filtrele
         </label>
         <select
           value={filterCategory || ''}
           onChange={(e) => setFilterCategory(e.target.value || null)}
-          className="w-full md:w-64 px-4 py-3 border border-charcoal/10 rounded-xl focus:ring-2 focus:ring-sage-400 focus:border-transparent outline-none font-light bg-white"
+          className="w-full md:w-80 px-4 md:px-5 py-3 md:py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm text-sm"
         >
           <option value="">Tümü</option>
           {categories.map((cat) => (
@@ -253,14 +260,15 @@ export default function ProductManager({ products, categories, onUpdate }) {
         </div>
       )}
 
-      <div className="space-y-3">
+      {/* Professional Grid Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
         {sortedProducts.map((product, index) => {
           const category = categories.find((c) => c.id === product.categoryId)
           return (
-            <div key={product.id}>
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between p-5 bg-sand-50 rounded-2xl hover:bg-sand-100 transition-all gap-4">
-                <div className="flex items-start gap-4 flex-1">
-                  <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-sand-100 flex-shrink-0">
+            <div key={product.id} className="bg-white rounded-xl md:rounded-2xl border border-charcoal/10 overflow-hidden shadow-sm hover:shadow-md transition-all">
+              <div className="p-4 md:p-6">
+                <div className="flex items-start gap-3 md:gap-5 mb-3 md:mb-4">
+                  <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-lg md:rounded-xl overflow-hidden bg-sand-100 flex-shrink-0 shadow-sm">
                     {product.image ? (
                       product.image.startsWith('http') ? (
                         <Image
@@ -268,7 +276,7 @@ export default function ProductManager({ products, categories, onUpdate }) {
                           alt={product.name}
                           fill
                           className="object-cover"
-                          sizes="80px"
+                          sizes="(max-width: 768px) 80px, 96px"
                         />
                       ) : (
                         <img
@@ -278,57 +286,62 @@ export default function ProductManager({ products, categories, onUpdate }) {
                         />
                       )
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-3xl opacity-20">
+                      <div className="w-full h-full flex items-center justify-center text-3xl md:text-4xl opacity-20">
                         🍽️
                       </div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-light text-lg text-charcoal tracking-tight mb-1">{product.name}</h3>
-                    <p className="text-sm text-charcoal/60 font-light mb-2 line-clamp-2">{product.description}</p>
-                    <p className="text-xs text-charcoal/40 font-light">
-                      {category?.icon} {category?.name} | {product.price} ₺ | Sıra: {product.order}
-                    </p>
+                    <h3 className="font-light text-base md:text-xl text-charcoal tracking-tight mb-1 md:mb-2">{product.name}</h3>
+                    <p className="text-xs md:text-sm text-charcoal/60 font-light mb-2 md:mb-3 line-clamp-2">{product.description}</p>
+                    <div className="flex items-center gap-2 md:gap-4 flex-wrap">
+                      <span className="text-xs md:text-sm text-charcoal/50 font-light bg-sage-50 px-2 md:px-3 py-1 rounded-full">
+                        {category?.icon} {category?.name}
+                      </span>
+                      <span className="text-base md:text-lg font-light text-charcoal">{product.price} ₺</span>
+                      <span className="text-xs text-charcoal/40 font-light">Sıra: {product.order}</span>
+                    </div>
                     {!product.available && (
-                      <span className="inline-block mt-1 text-xs text-red-600 font-light bg-red-50 px-2 py-1 rounded-full">
-                        Stokta Yok
+                      <span className="inline-block mt-2 text-xs text-red-600 font-light bg-red-50 px-2 md:px-3 py-1 rounded-full">
+                        ⚠️ Stokta Yok
                       </span>
                     )}
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2 w-full md:w-auto">
+
+                <div className="flex gap-2 pt-3 md:pt-4 border-t border-charcoal/5">
                   <button
                     onClick={() => moveUp(index, sortedProducts)}
                     disabled={index === 0}
-                    className="px-4 py-2 bg-charcoal/80 text-white rounded-lg hover:bg-charcoal disabled:opacity-30 disabled:cursor-not-allowed transition-all font-light text-sm flex-1 md:flex-none"
+                    className="px-3 md:px-4 py-2 bg-gradient-to-r from-charcoal/80 to-charcoal/90 text-white rounded-lg hover:from-charcoal hover:to-charcoal disabled:opacity-30 disabled:cursor-not-allowed transition-all font-light text-xs md:text-sm shadow-sm"
                   >
                     ↑
                   </button>
                   <button
                     onClick={() => moveDown(index, sortedProducts)}
                     disabled={index === sortedProducts.length - 1}
-                    className="px-4 py-2 bg-charcoal/80 text-white rounded-lg hover:bg-charcoal disabled:opacity-30 disabled:cursor-not-allowed transition-all font-light text-sm flex-1 md:flex-none"
+                    className="px-3 md:px-4 py-2 bg-gradient-to-r from-charcoal/80 to-charcoal/90 text-white rounded-lg hover:from-charcoal hover:to-charcoal disabled:opacity-30 disabled:cursor-not-allowed transition-all font-light text-xs md:text-sm shadow-sm"
                   >
                     ↓
                   </button>
                   <button
                     onClick={() => handleEdit(product)}
-                    className="px-4 py-2 bg-sand-600 text-white rounded-lg hover:bg-sand-700 transition-all font-light text-sm flex-1 md:flex-none"
+                    className="flex-1 px-4 md:px-5 py-2 bg-gradient-to-r from-sand-600 to-sand-700 text-white rounded-lg hover:from-sand-700 hover:to-sand-800 transition-all font-light text-xs md:text-sm shadow-sm"
                   >
-                    Düzenle
+                    ✏️ Düzenle
                   </button>
                   <button
                     onClick={() => handleDelete(product.id)}
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all font-light text-sm flex-1 md:flex-none"
+                    className="px-4 md:px-5 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all font-light text-xs md:text-sm shadow-sm"
                   >
-                    Sil
+                    🗑️
                   </button>
                 </div>
               </div>
 
               {/* Edit form appears right below the product being edited */}
               {editingId === product.id && (
-                <div className="mt-3">
+                <div className="px-4 md:px-6 pb-4 md:pb-6">
                   <ProductForm
                     onSubmit={handleSubmit}
                     onCancel={() => {
@@ -352,7 +365,7 @@ export default function ProductManager({ products, categories, onUpdate }) {
       </div>
 
       {sortedProducts.length === 0 && (
-        <p className="text-center text-charcoal/40 py-12 font-light">
+        <p className="text-center text-charcoal/40 py-8 md:py-12 font-light text-sm">
           {filterCategory ? 'Bu kategoride ürün yok.' : 'Henüz ürün eklenmemiş.'}
         </p>
       )}
