@@ -30,7 +30,7 @@ export default function ProductModal({ product, onClose }) {
       onClick={handleClose}
     >
       <div
-        className={`bg-gradient-to-br from-cream to-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl transform transition-all duration-500 ${
+        className={`bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl transform transition-all duration-500 ${
           isVisible ? 'scale-100 opacity-100 rotate-0' : 'scale-95 opacity-0 rotate-1'
         }`}
         onClick={(e) => e.stopPropagation()}
@@ -95,46 +95,34 @@ export default function ProductModal({ product, onClose }) {
           </div>
         </div>
 
-        <div className="p-8 md:p-12 overflow-y-auto max-h-[calc(90vh-32rem)]">
+        <div className="p-8 md:p-12 overflow-y-auto max-h-[calc(90vh-32rem)] bg-white">
           {/* Description */}
-          <p className="text-coffee-700 text-lg md:text-xl mb-10 leading-relaxed">
+          <p className="text-charcoal/80 text-lg md:text-xl mb-10 leading-relaxed font-light">
             {product.description}
           </p>
 
-          {/* Price and CTA section */}
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pt-8 border-t-2 border-coffee-100">
+          {/* Price section */}
+          <div className="pt-8 border-t-2 border-sand-200">
             <div>
-              <p className="text-coffee-500 text-sm font-medium mb-2">Fiyat</p>
+              <p className="text-charcoal/60 text-sm font-light mb-2">Fiyat</p>
               <div className="flex items-baseline gap-2">
-                <span className="text-6xl md:text-7xl font-black bg-gradient-to-r from-coffee-600 via-coffee-700 to-coffee-800 bg-clip-text text-transparent">
+                <span className="text-6xl md:text-7xl font-light text-sand-700 tracking-tight">
                   {product.price}
                 </span>
-                <span className="text-3xl font-bold text-coffee-400">₺</span>
+                <span className="text-3xl font-light text-sand-600">₺</span>
               </div>
             </div>
-
-            {product.available && (
-              <button className="group bg-gradient-to-r from-coffee-600 via-coffee-700 to-coffee-800 text-white px-12 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-coffee-600/50 transition-all duration-300 hover:scale-105 flex items-center gap-4">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span>Sipariş Ver</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </button>
-            )}
           </div>
 
           {/* Additional info */}
-          <div className="mt-8 p-6 bg-mint/10 rounded-2xl border border-mint/20">
+          <div className="mt-8 p-6 bg-sand-50 rounded-2xl border border-sand-200">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-mint/30 flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">ℹ️</span>
+              <div className="w-12 h-12 rounded-full bg-sage-100 flex items-center justify-center flex-shrink-0">
+                <span className="text-2xl">☕</span>
               </div>
               <div>
-                <h4 className="font-bold text-coffee-800 mb-1">Bilgi</h4>
-                <p className="text-coffee-600 text-sm leading-relaxed">
+                <h4 className="font-light text-charcoal mb-1">Bilgi</h4>
+                <p className="text-charcoal/70 text-sm leading-relaxed font-light">
                   Tüm ürünlerimiz taze malzemelerle günlük olarak hazırlanmaktadır.
                 </p>
               </div>

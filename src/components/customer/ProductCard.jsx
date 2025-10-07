@@ -1,12 +1,18 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
+import ProductModal from './ProductModal'
 
 export default function ProductCard({ product, gridClass }) {
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <div
-      className={`group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg soft-shadow minimal-border ${gridClass}`}
-    >
+    <>
+      <div
+        className={`group relative bg-white rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl soft-shadow minimal-border cursor-pointer ${gridClass}`}
+        onClick={() => setShowModal(true)}
+      >
       {/* Image container - fills available space */}
       <div className="relative h-full w-full overflow-hidden">
         {product.image ? (
@@ -14,7 +20,7 @@ export default function ProductCard({ product, gridClass }) {
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:blur-sm"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
@@ -56,7 +62,26 @@ export default function ProductCard({ product, gridClass }) {
 
         {/* Minimal accent line on hover */}
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-sage-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+        {/* Detayları Gör Button - appears on hover */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none">
+          <button
+            className="bg-white/95 backdrop-blur-sm text-charcoal px-8 py-4 rounded-2xl font-light text-lg tracking-wide shadow-2xl hover:scale-110 transition-all duration-300 pointer-events-auto border-2 border-sage-400"
+            onClick={(e) => {
+              e.stopPropagation()
+              setShowModal(true)
+            }}
+          >
+            Detayları Gör
+          </button>
+        </div>
       </div>
     </div>
+
+    {/* Modal */}
+    {showModal && (
+      <ProductModal product={product} onClose={() => setShowModal(false)} />
+    )}
+    </>
   )
 }

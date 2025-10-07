@@ -1,12 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 
 export default function ImageUploader({ onUpload, currentImage }) {
   const [preview, setPreview] = useState(currentImage || null)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState(null)
+
+  // currentImage değiştiğinde preview'i güncelle
+  React.useEffect(() => {
+    setPreview(currentImage)
+  }, [currentImage])
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0]
@@ -110,13 +115,23 @@ export default function ImageUploader({ onUpload, currentImage }) {
       )}
       {preview && (
         <div className="relative w-full max-w-xs h-48 rounded-xl overflow-hidden border border-charcoal/10 shadow-sm">
-          <Image
-            src={preview}
-            alt="Preview"
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 384px"
-          />
+          {preview.startsWith('data:') || preview.startsWith('blob:') ? (
+            // Base64 veya blob URL için normal img tag kullan
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            // HTTP URL için Next.js Image kullan
+            <Image
+              src={preview}
+              alt="Preview"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 384px"
+            />
+          )}
         </div>
       )}
     </div>
