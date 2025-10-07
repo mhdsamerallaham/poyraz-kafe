@@ -6,10 +6,13 @@ import Image from 'next/image'
 export default function ImageUploader({ onUpload, currentImage }) {
   const [preview, setPreview] = useState(currentImage || null)
   const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState(null)
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0]
     if (!file) return
+
+    setError(null)
 
     // Preview oluştur
     const reader = new FileReader()
@@ -30,14 +33,20 @@ export default function ImageUploader({ onUpload, currentImage }) {
       })
 
       const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload başarısız')
+      }
+
       if (data.success) {
         onUpload(data.imagePath)
+        setError(null)
       } else {
-        alert('Resim yüklenemedi!')
+        setError('Resim yüklenemedi! Lütfen tekrar deneyin.')
       }
     } catch (error) {
       console.error('Upload error:', error)
-      alert('Resim yüklenirken hata oluştu!')
+      setError(error.message || 'Resim yüklenirken hata oluştu!')
     } finally {
       setUploading(false)
     }
@@ -45,24 +54,40 @@ export default function ImageUploader({ onUpload, currentImage }) {
 
   return (
     <div>
-      <label className="block text-sm font-semibold mb-2">Ürün Resmi</label>
+      <label className="block text-charcoal/70 font-light text-xs md:text-sm mb-2 md:mb-3 tracking-wide">
+        Ürün Resmi
+      </label>
       <input
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        className="mb-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-poyraz-red file:text-white hover:file:bg-poyraz-red-dark"
+        className="mb-3 block w-full text-xs md:text-sm text-charcoal/60 file:mr-3 file:py-2 md:file:py-2.5 file:px-4 md:file:px-5 file:rounded-xl file:border-0 file:text-xs md:file:text-sm file:font-light file:bg-gradient-to-r file:from-sand-600 file:to-sand-700 file:text-white hover:file:from-sand-700 hover:file:to-sand-800 file:shadow-sm disabled:opacity-50 cursor-pointer"
         disabled={uploading}
       />
       {uploading && (
-        <p className="text-sm text-blue-600 mb-2">Yükleniyor...</p>
+        <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-xl">
+          <p className="text-xs md:text-sm text-blue-600 font-light flex items-center gap-2">
+            <span className="animate-spin">⏳</span>
+            Yükleniyor...
+          </p>
+        </div>
+      )}
+      {error && (
+        <div className="mb-3 p-3 bg-red-50 border border-red-200 rounded-xl">
+          <p className="text-xs md:text-sm text-red-600 font-light flex items-center gap-2">
+            <span>⚠️</span>
+            {error}
+          </p>
+        </div>
       )}
       {preview && (
-        <div className="relative w-48 h-36 rounded-lg overflow-hidden border">
+        <div className="relative w-full max-w-xs h-48 rounded-xl overflow-hidden border border-charcoal/10 shadow-sm">
           <Image
             src={preview}
             alt="Preview"
             fill
             className="object-cover"
+            sizes="(max-width: 768px) 100vw, 384px"
           />
         </div>
       )}

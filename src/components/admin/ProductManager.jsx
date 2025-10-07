@@ -115,6 +115,7 @@ export default function ProductManager({ products, categories, onUpdate }) {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
             required
+            autoComplete="off"
           />
         </div>
         <div>
@@ -167,6 +168,7 @@ export default function ProductManager({ products, categories, onUpdate }) {
           className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sand-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
           rows="3"
           required
+          autoComplete="off"
         />
       </div>
       <div className="mb-6">

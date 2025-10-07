@@ -49,14 +49,21 @@ export default function AdminPage() {
       })
 
       const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || data.details || 'Kaydetme başarısız')
+      }
+
       if (data.success) {
-        alert('Menü başarıyla kaydedildi!')
+        alert('✅ Menü başarıyla kaydedildi!')
+        // Reload to get fresh data
+        window.location.reload()
       } else {
-        alert('Kaydetme hatası!')
+        alert('⚠️ Kaydetme hatası! Lütfen tekrar deneyin.')
       }
     } catch (error) {
       console.error('Save error:', error)
-      alert('Kaydetme sırasında hata oluştu!')
+      alert(`❌ Kaydetme sırasında hata oluştu!\n\n${error.message}`)
     } finally {
       setSaving(false)
     }

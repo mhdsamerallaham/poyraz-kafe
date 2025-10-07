@@ -181,6 +181,7 @@ export default function CategoryManager({ categories, onUpdate }) {
                 }
                 className="w-full px-5 py-3.5 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sage-500 focus:border-transparent outline-none font-light bg-white shadow-sm"
                 required
+                autoComplete="off"
               />
             </div>
             <div>
@@ -437,6 +438,7 @@ export default function CategoryManager({ categories, onUpdate }) {
                         }
                         className="w-full px-4 py-3 border border-charcoal/20 rounded-xl focus:ring-2 focus:ring-sage-500 focus:border-transparent outline-none font-light bg-white shadow-sm text-sm"
                         required
+                        autoComplete="off"
                       />
                     </div>
                     <div>
